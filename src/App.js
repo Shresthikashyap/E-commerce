@@ -13,7 +13,7 @@ function App() {
           <Navbar.Brand href="/">Ecommerce</Navbar.Brand>
         </Container>
       </Navbar>
-      <Products />
+      <Products/>
     </>
   );
 }
