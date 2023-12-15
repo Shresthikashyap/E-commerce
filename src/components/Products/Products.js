@@ -4,21 +4,25 @@ import AddToCart from '../Cart/AddToCart';
 
 const Products = [
   {
+    id:'p1',
     title: 'Colors',
     price: 100,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
   },
   {
+    id:'p2',
     title: 'Black and white Colors',
     price: 50,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
   },
   {
+    id:'p3',
     title: 'Yellow and Black Colors',
     price: 70,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
   },
   {
+    id:'p4',
     title: 'Blue Color',
     price: 100,
     imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
@@ -33,10 +37,11 @@ const AvailableProducts = () => {
           <Col key={Math.random().toString()}  sm={3}>
             <Card className='shadow-lg'>
               <Card.Body>
-            <img src={product.imageUrl} alt={product.title} />
-            <h3>{product.title}</h3>
-            <p>${product.price}</p>
-            <AddToCart varient='danger' item={product}/>
+                <div id={product.id} />
+                <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }}/>
+                <h3>{product.title}</h3>
+                <p>${product.price}</p>
+                <AddToCart varient='danger' item={product}/>
             </Card.Body>
             </Card>
           </Col>

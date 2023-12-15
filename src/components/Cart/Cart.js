@@ -1,6 +1,7 @@
 import React,{  useContext } from 'react';
 import CartContext from "../../store/cart-context";
 import CartItem from "./CartItem";
+import { Button } from 'react-bootstrap';
 
 // const cartProducts = [
 //     {
@@ -38,10 +39,11 @@ const Cart = () => {
     cartCntxt.addItem({ ...item, quantity: item.quantity });
   };
 
-const cartitems = (<ul>
+const cartitems = (<div>
 {cartCntxt.items.map((item) =>{
     return <CartItem 
-    key={Math.random().toString()} 
+    key={item.id} 
+    id={item.id}
     name={item.title} 
     price={item.price} 
     imageUrl={item.imageUrl}
@@ -51,7 +53,7 @@ const cartitems = (<ul>
     />;
 }
 )}
-</ul>
+</div>
 )
 return (
 <div >
@@ -61,7 +63,7 @@ return (
         <span>₹ {cartCntxt.totalAmount}</span>
 
         <div>
-            {hasItems && <button >Order</button>}
+            {hasItems && <Button >Order</Button>}
         </div>
     </div>
 </div>

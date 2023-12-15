@@ -10,12 +10,13 @@ const AddProduct = (props) =>{
       event.preventDefault();
 
       console.log('in add ',props);
+      
       const quantity = props.item.quantity;
       cartCntxt.addItem({...props.item,quantity:quantity});
     }
     return (
         <div>
-            <Button variant='primary' onClick={addToCart}>Add Product</Button>
+            <Button variant='primary' onClick={addToCart} >Add Product</Button>
         </div>
     )
 }

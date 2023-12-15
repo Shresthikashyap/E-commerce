@@ -8,10 +8,11 @@ const CartProvider = props => {
     
 
     const addItemToCartHandler = item =>{
-        console.log('here in provider ',item);
+        
         const existingItemCartIndex = items.findIndex((i) => i.id === item.id)
         
         if(existingItemCartIndex === -1){
+            item.quantity = 1;
             updateItems([...items,item]);
         }else{
             const updatedItems = [...items];
