@@ -5,9 +5,11 @@ import Navbar from './components/Navbar';
 import Store from './components/Products/Products';
 import About from './components/About/About';
 import Cart from './components/Cart/Cart';
+import CartProvider from './store/CartProvider';
 
 const App = () => {
   return (
+    <CartProvider>
     <Router>
       <Navbar />
       <Routes>
@@ -17,6 +19,7 @@ const App = () => {
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
+    </CartProvider>
   );
 };
 

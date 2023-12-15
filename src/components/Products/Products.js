@@ -1,6 +1,6 @@
 import React from 'react';
-import { Container,Row,Col,Card,Button } from 'react-bootstrap';
-//import AddProduct from './AddProduct';
+import { Container,Row,Col,Card} from 'react-bootstrap';
+import AddToCart from '../Cart/AddToCart';
 
 const Products = [
   {
@@ -28,7 +28,6 @@ const Products = [
 
 const AvailableProducts = () => {
 
-
   const availableProducts = Products.map((product, index) => (
           
           <Col key={Math.random().toString()}  sm={3}>
@@ -37,12 +36,10 @@ const AvailableProducts = () => {
             <img src={product.imageUrl} alt={product.title} />
             <h3>{product.title}</h3>
             <p>${product.price}</p>
-            <Button>Add Product</Button>
+            <AddToCart varient='danger' item={product}/>
             </Card.Body>
             </Card>
           </Col>
-  
-    
   ));
 
   return (
