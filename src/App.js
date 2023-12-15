@@ -1,21 +1,23 @@
-import React from "react";
-import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import Products from './components/Products/Products'
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import Navbar from './components/Navbar';
+//import Home from './components/';
+import Store from './components/Products/Products';
+import About from './components/About/About';
+import Cart from './components/Cart/Cart';
 
-function App() {
+const App = () => {
   return (
-    <>
-      <Navbar bg="primary" expand="sm" varient="dark">
-        <Container>
-          <Navbar.Brand href="/">Ecommerce</Navbar.Brand>
-        </Container>
-      </Navbar>
-      <Products/>
-    </>
+    <Router>
+      <Navbar />
+      <Routes>
+
+        <Route path="/store" element={<Store />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
+    </Router>
   );
-}
+};
 
 export default App;

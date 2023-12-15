@@ -1,6 +1,6 @@
 import React from 'react';
-//import Card from '../UI/Card/Card';
 import { Container,Row,Col,Card,Button } from 'react-bootstrap';
+//import AddProduct from './AddProduct';
 
 const Products = [
   {
@@ -25,19 +25,23 @@ const Products = [
   },
 ];
 
+
 const AvailableProducts = () => {
+
+
   const availableProducts = Products.map((product, index) => (
-  
-          <Col key={index}  sm={3}>
+          
+          <Col key={Math.random().toString()}  sm={3}>
             <Card className='shadow-lg'>
               <Card.Body>
             <img src={product.imageUrl} alt={product.title} />
             <h3>{product.title}</h3>
             <p>${product.price}</p>
-            <Button varient='success'>Add to Cart</Button>
+            <Button>Add Product</Button>
             </Card.Body>
             </Card>
           </Col>
+  
     
   ));
 
