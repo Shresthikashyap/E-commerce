@@ -1,0 +1,22 @@
+/* Add these styles to your CSS file or style block */
+
+.tour-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+  }
+  
+  .tour-info > div {
+    margin: 0 10px; /* Adjust the margin as needed */
+  }
+  
+  .tour-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  hr {
+    margin: 15px 0;
+  }
+  
