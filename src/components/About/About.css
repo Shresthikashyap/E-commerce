@@ -1,0 +1,28 @@
+.about-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .about-content {
+    display: flex;
+    align-items: center;
+  }
+  
+  .about-header{
+    font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-weight: 300;
+    padding: 5%;
+  }
+
+  .about-para{
+    padding-top: 5%;
+  }
+  
+  .about-image {
+    border-radius: 50% !important;
+    margin-right: 20px !important;  /* Adjust as needed */
+    width: 170px !important;  /* Adjust as needed */
+    height: 150px !important;  /* Adjust as needed */
+  }
+  
