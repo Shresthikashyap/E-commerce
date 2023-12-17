@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Home from './components/Home/Home';
 import Store from './components/Products/Products';
 import About from './components/About/About';
+import ContactUs from './components/ContactUs/ContactUs';
 import Cart from './components/Cart/Cart';
 import CartProvider from './store/CartProvider';
 
@@ -16,6 +17,7 @@ const App = () => {
         <Route path="/home" element={<Home />} />
         <Route path="/store" element={<Store />} />
         <Route path="/about" element={<About />} />
+        <Route path="/ContactUs" element={<ContactUs/>}/>
         <Route path="/cart" element={<Cart />} />
       </Routes>
     </Router>
