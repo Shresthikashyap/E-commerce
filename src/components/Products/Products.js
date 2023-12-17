@@ -1,5 +1,6 @@
 import React from 'react';
-import { Container,Row,Col,Card} from 'react-bootstrap';
+import { Link } from 'react-router-dom';
+import { Container,Row,Col,Card,Button} from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
 
 const Products = [
@@ -37,10 +38,14 @@ const AvailableProducts = () => {
           <Col key={Math.random().toString()}  sm={3}>
             <Card className='shadow-lg'>
               <Card.Body>
-                <div id={product.id} />
-                <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }}/>
-                <h3>{product.title}</h3>
-                <p>${product.price}</p>
+              <div id={product.id} />
+          <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
+          <h3>{product.title}</h3>
+          <p>${product.price}</p>
+          {/* Use Link instead of Button for navigation */}
+          <Link to={`/store/${product.id}`}>
+            <Button>View Product</Button>
+          </Link>
                 <AddToCart varient='danger' item={product}/>
             </Card.Body>
             </Card>

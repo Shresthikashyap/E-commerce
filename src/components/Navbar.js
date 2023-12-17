@@ -14,7 +14,7 @@ const YourNavbarComponent = () => {
             </Nav.Link>
             <Nav.Link as={Link} to="/store">
               Store
-            </Nav.Link>
+            </Nav.Link>            
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
