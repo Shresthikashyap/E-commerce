@@ -1,7 +1,8 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext } from 'react';
+import { Link,useHistory } from 'react-router-dom';
 import { Container,Row,Col,Card} from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
+import AuthContext from '../../store/auth-context';
 
 const Products = [
   {
@@ -32,6 +33,13 @@ const Products = [
 
 
 const AvailableProducts = () => {
+
+  const authCntxt = useContext(AuthContext);
+  const navigate = useHistory();
+  
+  if(!authCntxt.isLoggedIn){
+    navigate.replace('/login');
+  }
 
   const availableProducts = Products.map((product, index) => (
           
