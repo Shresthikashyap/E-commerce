@@ -1,5 +1,9 @@
+import { useParams } from "react-router-dom";
+
 const Product = (props) => {
-    console.log(props)
+
+    const {id,title} = useParams();
+    console.log('in show product ',id,title)
 
     return (
         <div>
