@@ -1,7 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container,Row,Col,Card} from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
+import AuthContext from '../../store/auth-context';
+import ProductDetails from './ProductDetails'; // Import the new component
 
 const Products = [
   {
@@ -33,33 +35,55 @@ const Products = [
 
 const AvailableProducts = () => {
 
-  const availableProducts = Products.map((product, index) => (
-          
-          <Col key={Math.random().toString()}  sm={3}>
-            <Card className='shadow-lg'>
-              <Card.Body>
+  const authCntxt = useContext(AuthContext);
+  const navigate = useHistory();
+  
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
 
-              <Link to={`/store/${product.id}`} >
-              <div id={product.id} />
-              <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
-              <h3>title={product.title}</h3>
-              <p>${product.price}</p>
-              </Link>
-                <AddToCart varient='danger' item={product}/>
-            </Card.Body>
-            </Card>
-          </Col>
+  if (!authCntxt.isLoggedIn) {
+    navigate.replace('/login');
+  }
+
+  const handleViewProduct = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+    navigate.replace('/about');
+  };
+
+  const availableProducts = Products.map((product, index) => (
+    <Col key={product.id} sm={3}>
+      <Card className='shadow-lg'>
+        <Card.Body>
+        <div id={product.id} />
+          <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
+          <h3>{product.title}</h3>
+          <p>${product.price}</p>
+          <Link to={`/store/${product.id}`}>
+            <button onClick={() => handleViewProduct(product)}>View Product</button>
+          </Link>
+          <AddToCart variant='danger' item={product} />
+        </Card.Body>
+      </Card>
+    </Col>
   ));
 
   return (
     <section>
       <div>
         <Container className='mt-3'>
-          <Row>
-                {availableProducts}
-          </Row>
+          <Row>{availableProducts}</Row>
         </Container>
       </div>
+
+      {/* Modal for displaying product details */}
+      {selectedProduct && (
+        <ProductDetails product={selectedProduct} showModal={showModal} handleClose={handleCloseModal} />
+      )}
     </section>
   );
 };

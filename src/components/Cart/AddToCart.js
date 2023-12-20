@@ -9,8 +9,8 @@ const AddProduct = (props) =>{
     const addToCart = (event) => {
       event.preventDefault();
 
-      console.log('in add ',props);
-      
+      console.log('in add ',props);   
+
       const quantity = props.item.quantity;
       cartCntxt.addItem({...props.item,quantity:quantity});
     }

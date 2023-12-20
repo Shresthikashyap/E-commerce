@@ -1,8 +1,17 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Navbar, Container, Nav } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
+import CartContext from '../store/cart-context';
 
 const YourNavbarComponent = () => {
+
+  const cartCntxt = useContext(CartContext);
+
+  const noOfCatItems = cartCntxt.items.reduce((currNum,item)=>{
+    console.log('in nav ',item)
+    return Number(currNum)+Number(item.quantity);
+  },0)
+
   return (
     <Navbar bg="dark" expand="sm" variant="dark">
       <Container>
@@ -14,7 +23,7 @@ const YourNavbarComponent = () => {
             </Nav.Link>
             <Nav.Link as={Link} to="/store">
               Store
-            </Nav.Link>            
+            </Nav.Link>        
             <Nav.Link as={Link} to="/about">
               About
             </Nav.Link>
@@ -25,7 +34,7 @@ const YourNavbarComponent = () => {
               Contact Us
             </Nav.Link>
             <Nav.Link as={Link} to="/cart">
-            🛒
+            🛒{noOfCatItems}
             </Nav.Link>
           </Nav>
         </Navbar.Collapse>

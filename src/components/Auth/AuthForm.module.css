@@ -27,7 +27,7 @@
 
 .control input {
   font: inherit;
-  background-color: #f1e1fc;
+  background-color: #4e4d4d;
   color: #fcf9ff;
   border-radius: 4px;
   border: 1px solid white;
@@ -47,7 +47,7 @@
   cursor: pointer;
   font: inherit;
   color: rgb(0, 0, 0);
-  background-color: #e2dede;
+  background-color: #fffbfb;
   border: 1px solid #d1caca;
   border-radius: 4px;
   padding: 0.5rem 2.5rem;

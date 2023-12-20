@@ -2,11 +2,13 @@ import { useState, useRef, useContext } from 'react';
 
 import classes from './AuthForm.module.css';
 import AuthContext from '../../store/auth-context';
+import CartContext from '../../store/cart-context';
 //import userEvent from '@testing-library/user-event';
 
 const AuthForm = () => {
 
   const authCntxt = useContext(AuthContext);
+  const cartCntxt = useContext(CartContext);
 
   const emailInputRef = useRef();
   const passwordInputRef = useRef();
@@ -18,6 +20,8 @@ const AuthForm = () => {
     setIsLoading(true);
     const enteredEmail = emailInputRef.current.value;
     const enteredPassword = passwordInputRef.current.value;
+
+    cartCntxt.setCartUserEmail(enteredEmail);
 
     //validation
     let url ='https://identitytoolkit.googleapis.com/v1/accounts:signInWithPassword?key=AIzaSyCv1ruYo50isrfGtym2fBvPk_jC8xN4EC0';
