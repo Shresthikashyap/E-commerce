@@ -1,7 +1,9 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { Container,Row,Col,Card} from 'react-bootstrap';
+import React, { useContext, useState } from 'react';
+import { Link, useHistory } from 'react-router-dom';
+import { Container, Row, Col, Card } from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
+import AuthContext from '../../store/auth-context';
+import ProductDetails from './ProductDetails';
 
 const Products = [
   {
@@ -33,11 +35,29 @@ const Products = [
 
 const AvailableProducts = () => {
 
+  const authCntxt = useContext(AuthContext);
+  const navigate = useHistory();
+
+  const [selectedProduct, setSelectedProduct] = useState(null);
+  const [showModal, setShowModal] = useState(false);
+
+  if (!authCntxt.isLoggedIn) {
+    navigate.replace('/login');
+  }
+
+  const handleViewProduct = (product) => {
+    setSelectedProduct(product);
+    setShowModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setShowModal(false);
+  };
+
   const availableProducts = Products.map((product, index) => (
     <Col key={product.id} sm={3}>
       <Card className='shadow-lg'>
         <Card.Body>
-        <div id={product.id} />
           <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
           <h3>{product.title}</h3>
           <p>${product.price}</p>

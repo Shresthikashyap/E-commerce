@@ -12,13 +12,37 @@ const CartProvider = props => {
     useEffect(() => {
         const fetchData = async () => {
           try {
-            const response = await axios.get(`https://crudcrud.com/api/c83c4443fefd41db8d3cb51da2be5cc6/cart`);
+            // const res = await axios.delete(`https://crudcrud.com/api/787c5205e20e4fc49ebc39d0e136d045/cart`);
+            // console.log('delete', res)
+            const response = await axios.get(`https://crudcrud.com/api/5242010bdf4e4166a132950674a25b2b/cartdogmailcom`);
             console.log('Cart data:', response.data);
     
-            const cartObject = JSON.parse(response.data);
-            // const cartObjectWithEmail = cartObject.filter((cartItem) => cartItem.email === userEmail);
-            // console.log('in use effect ',cartObjectWithEmail)
-            updateItems(cartObject.data);
+            if(response.data.length !== 0){
+                const updatedCart = []; // Create a copy of the existing cart
+
+                for (let i = 0; i < response.data.length; i++) {
+                  const currentItem = response.data[i];
+        
+                  const existingItemIndex = updatedCart.findIndex((item) => item.id === currentItem.id);
+                  
+                  if (existingItemIndex !== -1) {
+                    console.log('in if now', updatedCart[existingItemIndex])
+                    // If item with the same ID exists in the cart, update its quantity
+                    updatedCart[existingItemIndex].quantity = Number(updatedCart[existingItemIndex].quantity) + 1;
+                  } else {
+                    console.log('in else ',currentItem)
+                    // If item doesn't exist in the cart, add it
+                    updatedCart.push(currentItem);
+                  }
+
+                  const priceNumber = Number(total)+Number(currentItem.price);
+                  updateTotal(priceNumber); 
+                }
+                console.log('updated cart',updatedCart)
+                if(updatedCart.length !== 0){
+                  updateItems(updatedCart);
+                } 
+            }
     
           } catch (error) {
             console.error('Error fetching cart data:', error);
@@ -26,7 +50,7 @@ const CartProvider = props => {
         };
     
         fetchData();
-      }, [userEmail]); // Empty dependency array means this effect runs once on mount
+      }, [userEmail,total]); // Empty dependency array means this effect runs once on mount
 
     const addItemToCartHandler = async(item) => {
 
@@ -47,9 +71,8 @@ const CartProvider = props => {
         const priceNumber = Number(total)+Number(item.price);
 
         updateTotal(priceNumber); 
-        
-        const data = JSON.stringify(item);
-        const response = await axios.post(`https://crudcrud.com/api/c83c4443fefd41db8d3cb51da2be5cc6/cart`,{data});
+       
+        const response = await axios.post(`https://crudcrud.com/api/5242010bdf4e4166a132950674a25b2b/cartdogmailcom`,{item});
         console.log('Cart data saved successfully:', response.data);
     };
 
@@ -71,7 +94,14 @@ const CartProvider = props => {
     };
     
     const setCartUserEmailHandler = (email) => {
-        setUserEmail(email);
+          let mail = email;
+        if(!localStorage.getItem(email)){
+           mail = localStorage.setItem('email',email);
+        }else{
+          localStorage.setItem('email',email);
+        }
+  
+        setUserEmail(mail);
     };
 
     const cartContext = {

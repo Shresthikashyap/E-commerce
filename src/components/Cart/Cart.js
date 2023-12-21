@@ -1,22 +1,11 @@
 // Cart.js
-import React, { useContext, useState } from 'react';
-import CartContext from "../../store/cart-context";
-import CartItem from "./CartItem";
-import { Button, Modal } from 'react-bootstrap';
+import React, { useContext } from 'react';
+import { Card,Button } from 'react-bootstrap';
+import CartContext from '../../store/cart-context';
 
 const Cart = () => {
   const cartCntxt = useContext(CartContext);
-  const hasItems = cartCntxt.items.length > 0;
-
-  const [showModal, setShowModal] = useState(true);
-
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  // const handleShowModal = () => {
-  //   setShowModal(true);
-  // };
+  const userEmail = cartCntxt.emailId;
 
   const cartItemRemoveHandler = (id) => {
     cartCntxt.removeItem(id);
@@ -25,37 +14,21 @@ const Cart = () => {
   const cartItemAddHandler = async(item) => {
     cartCntxt.addItem({ ...item, quantity: item.quantity });
   };
-  
+
   return (
     <div>
-      {/* <Button onClick={handleShowModal}>Open Cart</Button> */}
-
-      <Modal show={showModal} onHide={handleCloseModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Your Shopping Cart</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>
-          {cartCntxt.items.map((item) => (
-            <CartItem
-              key={item.id}
-              id={item.id}
-              name={item.title}
-              price={item.price}
-              imageUrl={item.imageUrl}
-              quantity={item.quantity}
-              onRemove={cartItemRemoveHandler.bind(null, item.id)}
-              onAdd={cartItemAddHandler.bind(null, item)}
-            />
-          ))}
-        </Modal.Body>
-        <Modal.Footer>
-          <span>Total: ₹{cartCntxt.totalAmount}</span>
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
-          {hasItems && <Button variant="primary">Order</Button>}
-        </Modal.Footer>
-      </Modal>
+      {cartCntxt.items.filter((item) => item.email === userEmail).map((item) => (
+        <Card key={item.id}>
+          <Card.Body>
+            {/* Render cart item details here */}
+            <p>{item.title}</p>
+            <p>Quantity: {item.quantity}</p>
+            <p>Price: ${item.price * item.quantity}</p>
+            <Button variant="primary" onClick={cartItemRemoveHandler.bind(null, item.id)}>-</Button>
+            <Button variant="primary" onClick={cartItemAddHandler.bind(null, item)}>+</Button>
+          </Card.Body>
+        </Card>
+      ))}
     </div>
   );
 };
