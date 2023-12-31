@@ -1,22 +1,28 @@
-/* Add these styles to your CSS file or style block */
+.tours-header {
+  background-color: #1f1e1e5e !important; /* Grey background color */ 
+}
 
-.tour-info {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-  }
-  
-  .tour-info > div {
-    margin: 0 10px; /* Adjust the margin as needed */
-  }
-  
-  .tour-list {
-    list-style: none;
-    padding: 0;
-  }
-  
-  hr {
-    margin: 15px 0;
-  }
-  
+.tours-header img {
+  padding: 20px;/* Add padding for space around the image */
+  border-radius: 50%; /* Make it a circle */
+  width: 150px; /* Set a fixed width */
+  height: 150px; /* Set a fixed height */
+}
+
+/* Update your CSS file with these styles */
+.tour-item {
+  display: flex;
+  justify-content: space-between; /* Add this to create space between elements */
+  align-items: center;
+  border-bottom: 1px solid #ccc; /* Lighter border color */
+  padding: 10px;
+}
+
+/* Add a container class to center the content */
+.tours-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh; /* Adjust the height as needed */
+}

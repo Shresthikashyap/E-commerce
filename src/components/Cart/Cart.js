@@ -1,31 +1,51 @@
 // Cart.js
 import React, { useContext } from 'react';
-import { Card,Button } from 'react-bootstrap';
+import { Card,Button} from 'react-bootstrap';
 import CartContext from '../../store/cart-context';
 
 const Cart = () => {
   const cartCntxt = useContext(CartContext);
-  const userEmail = cartCntxt.emailId;
+
+  const updatedCart = [];
+  
+  for (let i = 0; i < cartCntxt.items.length; i++) {
+    const currentItem = cartCntxt.items[i];
+
+    const existingItemCartIndex = updatedCart.findIndex((i) => i.item.id === currentItem.item.id)
+
+    if(existingItemCartIndex === -1){
+      currentItem.item.quantity = 1;
+      updatedCart.push(currentItem);
+    }else{
+      updatedCart[existingItemCartIndex].item.quantity = Number(updatedCart[existingItemCartIndex].item.quantity)+1;
+    }
+  }
 
   const cartItemRemoveHandler = (id) => {
     cartCntxt.removeItem(id);
   };
   
   const cartItemAddHandler = async(item) => {
-    cartCntxt.addItem({ ...item, quantity: item.quantity });
+    cartCntxt.addItem({ ...item});
   };
 
   return (
     <div>
-      {cartCntxt.items.filter((item) => item.email === userEmail).map((item) => (
-        <Card key={item.id}>
-          <Card.Body>
-            {/* Render cart item details here */}
-            <p>{item.title}</p>
-            <p>Quantity: {item.quantity}</p>
-            <p>Price: ${item.price * item.quantity}</p>
-            <Button variant="primary" onClick={cartItemRemoveHandler.bind(null, item.id)}>-</Button>
-            <Button variant="primary" onClick={cartItemAddHandler.bind(null, item)}>+</Button>
+      {updatedCart.map((cartItem) => (
+        <Card key={cartItem.item.id} className="mb-3">
+          <Card.Body className="d-flex align-items-center">
+            <div>
+              <img src={cartItem.item.imageUrl} alt={cartItem.item.title} style={{ maxWidth: '80%', height: 'auto' }} />
+            </div>
+            <div>
+              <h5>{cartItem.item.title}</h5>
+              <p className="mb-1">Quantity: {cartItem.item.quantity}</p>
+              <p className="mb-1">Price: ${cartItem.item.price}</p>
+              <div>
+                <Button variant="primary" onClick={() => cartItemRemoveHandler(cartItem._id)}> - </Button>
+                <Button variant="dark" onClick={() => cartItemAddHandler(cartItem.item)} className="ms-2"> + </Button>
+              </div>
+            </div>
           </Card.Body>
         </Card>
       ))}

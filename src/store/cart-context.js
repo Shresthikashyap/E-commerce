@@ -4,10 +4,9 @@ const CartContext = React.createContext({
     items:[],
     product:{},
     totalAmount: 0,
-    emailId: null,
-    setCartUserEmail:(emailId)=>{},
-    addItem:(items) => {},
-    removeItem: (id) => {}
+    addItem:(item) => {},
+    removeItem: (id) => {},
+    removeAllItems:()=>{}
 });
 
 export default CartContext;

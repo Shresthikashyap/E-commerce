@@ -1,0 +1,35 @@
+/* Error message styles */
+.error {
+    color: red;
+  }
+  
+  /* Loading styles */
+  .loading {
+    text-align: center;
+  }
+  
+  /* Product image styles */
+  .product-image {
+    max-width: 100%;
+    height: auto;
+    margin-bottom: 20px;
+  }
+  
+  .product-price{
+    font-weight: 500 !important;
+  }
+
+  /* Product details styles */
+  .product-details p {
+    font-weight: bold;
+  }
+  
+  /* Close button styles */
+  .footer button {
+    background-color: #6c757d;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  

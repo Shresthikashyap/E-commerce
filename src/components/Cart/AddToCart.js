@@ -5,15 +5,11 @@ import CartContext from "../../store/cart-context";
 const AddProduct = (props) =>{
 
     const cartCntxt = useContext(CartContext);
-    const userEmail = cartCntxt.emailId;
 
     const addToCart = (event) => {
       event.preventDefault();
-
-      console.log('in add ',props);   
-      props.item.email = userEmail;
-      const quantity = props.item.quantity;
-      cartCntxt.addItem({...props.item,quantity:quantity});
+      
+      cartCntxt.addItem({...props.item});
     }
     return (
         <div>

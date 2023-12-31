@@ -1,68 +1,63 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
 import { Container, Row, Col, Card } from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
 import AuthContext from '../../store/auth-context';
-import ProductDetails from './ProductDetails';
+import './Products.css';
+import CardComponent from '../UI/Card/Card'
 
-const Products = [
-  {
-    id:'p1',
-    title: 'Colors',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%201.png',
-  },
-  {
-    id:'p2',
-    title: 'Black and white Colors',
-    price: 50,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%202.png',
-  },
-  {
-    id:'p3',
-    title: 'Yellow and Black Colors',
-    price: 70,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%203.png',
-  },
-  {
-    id:'p4',
-    title: 'Blue Color',
-    price: 100,
-    imageUrl: 'https://prasadyash2411.github.io/ecom-website/img/Album%204.png',
-  },
-];
-
+const API_URL = 'https://react-f984f-default-rtdb.firebaseio.com/products.json';
 
 const AvailableProducts = () => {
+  const authContext = useContext(AuthContext);
+  const history = useHistory();
+  const [loading, setLoading] = useState(true);
+  const [products, setProducts] = useState([]);
+  const [error, setError] = useState(null);
 
-  const authCntxt = useContext(AuthContext);
-  const navigate = useHistory();
+  useEffect(() => {
+    const fetchProducts = async () => {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error('Failed to fetch products');
+        }
+        const data = await response.json();
 
-  const [selectedProduct, setSelectedProduct] = useState(null);
-  const [showModal, setShowModal] = useState(false);
+        const loadedProducts = [];
+        for (const key in data) {
+          loadedProducts.push({
+            id: key,
+            title: data[key].title,
+            price: data[key].price,
+            imageUrl: data[key].imageUrl,
+          });
+        }
 
-  if (!authCntxt.isLoggedIn) {
-    navigate.replace('/login');
-  }
+        setProducts(loadedProducts);
+        setLoading(false);
+      } catch (error) {
+        setError(error.message);
+        setLoading(false);
+      }
+    };
 
-  const handleViewProduct = (product) => {
-    setSelectedProduct(product);
-    setShowModal(true);
-  };
+    if (!authContext.isLoggedIn) {
+      history.replace('/login');
+    } else {
+      fetchProducts();
+    }
+  }, [authContext.isLoggedIn, history]);
 
-  const handleCloseModal = () => {
-    setShowModal(false);
-  };
-
-  const availableProducts = Products.map((product, index) => (
-    <Col key={product.id} sm={3}>
+  const productItems = products.map((product) => (
+    <Col key={product.id} sm={3} >
       <Card className='shadow-lg'>
         <Card.Body>
-          <img src={product.imageUrl} alt={product.title} style={{ maxWidth: '100%', height: 'auto' }} />
+          <img src={product.imageUrl} alt={product.title} className='content-img'/>
           <h3>{product.title}</h3>
-          <p>${product.price}</p>
+          <p> ₹ {product.price}</p>
           <Link to={`/store/${product.id}`}>
-            <button onClick={() => handleViewProduct(product)}>View Product</button>
+            <button>View Product</button>
           </Link>
           <AddToCart variant='danger' item={product} />
         </Card.Body>
@@ -70,19 +65,21 @@ const AvailableProducts = () => {
     </Col>
   ));
 
-  return (
-    <section>
-      <div>
-        <Container className='mt-3'>
-          <Row>{availableProducts}</Row>
-        </Container>
-      </div>
 
-      {/* Modal for displaying product details */}
-      {selectedProduct && (
-        <ProductDetails product={selectedProduct} showModal={showModal} handleClose={handleCloseModal} />
-      )}
+  return (
+    <CardComponent>
+    <section>
+      <Container className='mt-3'>
+      {loading && <p className="loading">Loading...</p>}
+        {error && <p className="error">Error: {error}</p>}
+        {!loading && !error && (
+          <div className='item-content'>
+            <Row>{productItems}</Row>
+          </div>
+        )}
+      </Container>
     </section>
+    </CardComponent>
   );
 };
 

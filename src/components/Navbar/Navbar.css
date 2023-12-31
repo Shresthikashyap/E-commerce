@@ -1,0 +1,102 @@
+/* styles.css */
+
+/* Navbar styling */
+.navbar {
+  background-color: #343a40 !important; /* Navbar background color */
+  margin-bottom: 0.2%;
+}
+
+/* .navbar-brand {
+  color: white !important; 
+  font-weight: 600;
+  font-size: 30px !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+} */
+
+.navbar-nav {
+  font-weight: 600;
+  font-size: 17px !important;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  margin: 0 auto; /* Center the navbar content */
+}
+
+.nav-link {
+  color: white !important;
+  margin: 9px 10px; /* Add spacing between navbar links */
+}
+
+h1{
+  padding: 40px;
+  font-size: 60px !important;
+  text-align: center;
+  color: aliceblue;
+  background-color:#41484e;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+}
+
+.cart {
+
+  /* padding: 6px 10px !important; */
+  position:absolute;
+  right: 2%;
+}
+
+/* Center the navbar content */
+.nav-link {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+
+}
+
+/* Cart modal styling */
+.modal-dialog {
+  margin: 0; /* Remove default margin to make it full-width */
+  max-width: none; /* Remove max-width to make it full-width */
+}
+
+.modal-content {
+  border-radius: 0; /* Remove border-radius for a clean look */
+}
+
+.modal-header, .modal-footer {
+  background-color: #343a40; /* Modal header and footer background color */
+  color: white; /* Modal header and footer text color */
+}
+
+.modal-body {
+  padding: 30px; /* Add padding to the modal body */
+}
+
+/* Center the modal content horizontally */
+.modal-dialog {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Adjust modal position to the left */
+.modal-content {
+  margin: 0;
+  transform: translateX(100%);
+}
+
+/* Style the close button in the modal */
+.modal-header .close {
+  color: white;
+}
+
+/* Style the cart link and position it on the right */
+.navbar-nav .cart-link {
+  color: white;
+  margin-left: auto; /* Move to the right */
+  margin-right: 10px;
+}
+
+/* Hide cart link on small screens */
+@media (max-width: 576px) {
+  .navbar-nav .cart-link {
+    display: none;
+  }
+}

@@ -1,15 +1,18 @@
 .auth {
   margin: 3rem auto;
   width: 95%;
+  padding: 2% !important;
   max-width: 25rem;
   border-radius: 6px;
   background-color: #1a1919;
-  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
-  padding: 1rem;
+  /* box-shadow: 5px 5px 10px rgba(0, 4, 255, 0.769) !important; */
   text-align: center;
 }
 
-.auth h1 {
+
+h2 {
+  font-family:Georgia, 'Times New Roman', Times, serif;
+  padding-bottom: 6% !important;
   text-align: center;
   color: white;
 }
@@ -18,11 +21,10 @@
   margin-bottom: 0.5rem;
 }
 
-.control label {
-  display: block;
-  color: white;
-  font-weight: bold;
-  margin-bottom: 0.5rem;
+label {
+  color: rgba(255, 255, 255, 0.961) !important;
+  font-weight: bold !important;
+  margin-bottom: 0.5rem !important;
 }
 
 .control input {
@@ -33,7 +35,7 @@
   border: 1px solid white;
   width: 100%;
   text-align: left;
-  padding: 0.25rem;
+  padding: 0.75rem;
 }
 
 .actions {
@@ -46,9 +48,8 @@
 .actions button {
   cursor: pointer;
   font: inherit;
-  color: rgb(0, 0, 0);
-  background-color: #fffbfb;
-  border: 1px solid #d1caca;
+  color: rgb(0, 0, 0) !important;
+  background-color: #ffffff;
   border-radius: 4px;
   padding: 0.5rem 2.5rem;
 }

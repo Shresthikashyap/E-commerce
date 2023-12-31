@@ -9,6 +9,7 @@ import ContactUs from './components/ContactUs/ContactUs';
 import Cart from './components/Cart/Cart';
 import CartProvider from './store/CartProvider';
 import ProductDetails from './components/Products/ProductDetails';
+import Footer from './components/Footer/Footer';
 
 const App = () => {
 
@@ -18,7 +19,7 @@ const App = () => {
       <Navbar />
       <Switch>
         <Route path="/home" component={Home} />
-        <Route path="/store" component={Store} />
+        <Route path="/store" component={Store} exact/>
         <Route path="/store/:id" component={ProductDetails} />
         <Route path="/about" component={About} />
         <Route path="/login" component={Auth} />
@@ -26,6 +27,8 @@ const App = () => {
         <Route path="/cart" component={Cart} />
       </Switch>
     </Router>
+
+      <Footer />
     </CartProvider>
   );
 };

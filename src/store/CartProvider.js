@@ -1,121 +1,106 @@
-import React, {useState,useEffect} from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import CartContext from './cart-context';
-import axios from'axios';
+import axios from 'axios';
+import AuthContext from './auth-context';
 
-const CartProvider = props => {
+const CartProvider = (props) => {
 
-    const [items,updateItems] = useState([]);
-    const [total,updateTotal] = useState(0);
-    const [userEmail, setUserEmail] = useState('');
+  const authCntxt = useContext(AuthContext);
+  const email = authCntxt.emailId;
+  console.log('email',email)
+  const [items, updateItems] = useState([]);
+  const [total, updateTotal] = useState(0);
 
+useEffect(() => {
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}`);
+      console.log('Cart data:', response.data);
+       //if(!isNaN(response.data[0]._id)){
+          updateItems(response.data);    
+       //}
+    } catch (error) {
+      console.error('Error fetching cart data:', error);
+    }
+  };
     
-    useEffect(() => {
-        const fetchData = async () => {
-          try {
-            // const res = await axios.delete(`https://crudcrud.com/api/787c5205e20e4fc49ebc39d0e136d045/cart`);
-            // console.log('delete', res)
-            const response = await axios.get(`https://crudcrud.com/api/5242010bdf4e4166a132950674a25b2b/cartdogmailcom`);
-            console.log('Cart data:', response.data);
-    
-            if(response.data.length !== 0){
-                const updatedCart = []; // Create a copy of the existing cart
+  fetchData();
+}, [email]);
 
-                for (let i = 0; i < response.data.length; i++) {
-                  const currentItem = response.data[i];
-        
-                  const existingItemIndex = updatedCart.findIndex((item) => item.id === currentItem.id);
-                  
-                  if (existingItemIndex !== -1) {
-                    console.log('in if now', updatedCart[existingItemIndex])
-                    // If item with the same ID exists in the cart, update its quantity
-                    updatedCart[existingItemIndex].quantity = Number(updatedCart[existingItemIndex].quantity) + 1;
-                  } else {
-                    console.log('in else ',currentItem)
-                    // If item doesn't exist in the cart, add it
-                    updatedCart.push(currentItem);
-                  }
 
-                  const priceNumber = Number(total)+Number(currentItem.price);
-                  updateTotal(priceNumber); 
-                }
-                console.log('updated cart',updatedCart)
-                if(updatedCart.length !== 0){
-                  updateItems(updatedCart);
-                } 
-            }
-    
-          } catch (error) {
-            console.error('Error fetching cart data:', error);
-          }
-        };
-    
-        fetchData();
-      }, [userEmail,total]); // Empty dependency array means this effect runs once on mount
+  const addItemToCartHandler = async(item) => { 
+      try {
+      const response = await axios.post(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}`, { item });
+      console.log('Cart data saved successfully:', response.data);
+      const newItem = response.data;
 
-    const addItemToCartHandler = async(item) => {
+      alert('Item Added Successfully')
+      const existingItemCartIndex = items.findIndex((i) => i.item.id === newItem.item.id);
+     
+      if (existingItemCartIndex === -1) {
+        newItem.item.quantity = 1;
+        updateItems([...items, newItem]);
+      } else {      
+        const updatedItems = [...items];
+        const newQuantity =  Number(updatedItems[existingItemCartIndex].item.quantity) + 1;
+        newItem.item.quantity = newQuantity;
+        updateItems([...items,newItem]);
+      }
+      const priceNumber = Number(total) + Number(newItem.item.price);
+      updateTotal(priceNumber);
 
-        console.log('email ' , userEmail)
-        item.email = userEmail;
+    } catch (error) {
+      console.error('Error saving cart data:', error);
+    }
+  };
 
-        const existingItemCartIndex = items.findIndex((i) => i.id === item.id);
+  const removeItemFromCartHandler = async (_id) => {
 
-        if(existingItemCartIndex === -1){
-            item.quantity = 1;
-            updateItems([...items,item]);
-        }else{
-            const updatedItems = [...items];
-            updatedItems[existingItemCartIndex].quantity = Number(updatedItems[existingItemCartIndex].quantity)+1;
-            updateItems(updatedItems);
-        }
-
-        const priceNumber = Number(total)+Number(item.price);
-
-        updateTotal(priceNumber); 
+    try {
+      const response = await axios.delete(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}/${_id}`);
+      console.log('Item removed successfully:', response);
+         
+        const removedItemIndex = items.findIndex((i) => i._id === _id);
        
-        const response = await axios.post(`https://crudcrud.com/api/5242010bdf4e4166a132950674a25b2b/cartdogmailcom`,{item});
-        console.log('Cart data saved successfully:', response.data);
-    };
-
-    const removeItemFromCartHandler = id =>{
-        console.log('pehle ',id);
-
-        const itemToRemove = items.find((item) => item.id === id);
-        
-        if(Number(itemToRemove.quantity) === 1){  
-            const updatedItems = items.filter(item => item.id !== id)
-            updateItems(updatedItems);
-        }
-        else{
-            itemToRemove.quantity = Number(itemToRemove.quantity)-1;
-        }
-
-        const priceNumber = Number(total)-Number(itemToRemove.price);
+        const updatedItems = [...items];
+        const priceNumber = Number(total) - Number(updatedItems[removedItemIndex].item.price);         
         updateTotal(priceNumber);
-    };
-    
-    const setCartUserEmailHandler = (email) => {
-          let mail = email;
-        if(!localStorage.getItem(email)){
-           mail = localStorage.setItem('email',email);
-        }else{
-          localStorage.setItem('email',email);
-        }
   
-        setUserEmail(mail);
-    };
+        const filteredItems = items.filter(item => item._id !== _id)
+        updateItems(filteredItems);
+        
+        alert('Item removed successfully!'); 
+      } catch (error) {
+      alert('sorry')
+      console.error('Error removing item:', error);
+    }
+  }
 
-    const cartContext = {
-        items: items,
-        totalAmount: total,
-        emailId: userEmail,
-        setCartUserEmail: setCartUserEmailHandler,
-        addItem: addItemToCartHandler,
-        removeItem: removeItemFromCartHandler
-    };
+  const removeAllItemsFromCartHandler = async() =>{
+    
+    try{
+        for(let i=0;i<items.length;i++){
+        const response = await axios.delete(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}/${items[i]._id}`);
+        console.log('Items removed successfully:', response);
+        }
+        updateItems([]);
+        updateTotal(0);
+        alert('Your Order is Placed Succesfully')
+      } catch (error) {
+        alert('something went wrong')
+        console.error('Error removing items:', error);
+    }
+  }
+  
+  const cartContext = {
+    items: items,
+    totalAmount: total,
+    addItem: addItemToCartHandler,
+    removeItem: removeItemFromCartHandler,
+    removeAllItems: removeAllItemsFromCartHandler
+  };
 
-    return <CartContext.Provider value={cartContext}>
-        {props.children}
-        </CartContext.Provider>
-}
+  return <CartContext.Provider value={cartContext}>{props.children}</CartContext.Provider>;
+};
 
-export default CartProvider
+export default CartProvider;

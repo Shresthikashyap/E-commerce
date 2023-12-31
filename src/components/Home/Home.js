@@ -1,6 +1,7 @@
 import React from 'react';
-import { Container,Card,Button} from 'react-bootstrap';
+import { Container,Button} from 'react-bootstrap';
 import './Home.css';
+import Card from '../UI/Card/Card'
 
 const Tours = [
   {
@@ -36,33 +37,26 @@ const Tours = [
 
 
 const AvailableTours = () => {
-
   const availableTours = Tours.map((tour, index) => (
-          
-          <li key={Math.random().toString()}  sm={3}>
-            <Card className='shadow-lg'>
-              <Card.Body>
-              <div className='tour-info'>
-                <div className='tour-date'>{tour.date}</div>
-                <div className='tour-city'>{tour.city}</div>
-                <div className='tour-venue'>{tour.venue}</div>
-              </div>
-               <Button>Buy Tickets</Button>
-            </Card.Body>
-            </Card>
-          </li>
+    <div className='tour-item' key={index}>
+      <span >{tour.date}</span>
+      <span >{tour.city}</span>
+      <span >{tour.venue}</span>
+      <Button>Buy Tickets</Button>
+    </div>
   ));
 
   return (
+    <Card>
     <section>
-      <div>
-        <Container className='mt-4'>
-          <ul className='tour-list'>
-                {availableTours}
-          </ul>
-        </Container>
+      <div className='tours-header'>
+        <img src="https://cdn.dribbble.com/users/2200696/screenshots/14583171/media/9132c75e50cc259472a358b1c9517693.jpg?resize=1000x750&vertical=center" alt="music label" />
+      </div>
+      <div className='tours-container'>
+        <Container>{availableTours}</Container>
       </div>
     </section>
+    </Card>
   );
 };
 
