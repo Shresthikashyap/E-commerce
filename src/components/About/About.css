@@ -1,19 +1,20 @@
 /* Update your CSS file with these styles */
-.about {
+/* .about {
   max-width: 900px;
   margin: 0 auto;
   font-size: 22px;
-}
+} */
 
-.about-content {
+/* .about-content {
   text-align: center;
-}
+} */
 
 .about-header {
   font-family: "Metal Mania";
   text-align: center;
   padding: 20px;
   font-size: 30px;
+  color: black;
 }
 
 .about-image {

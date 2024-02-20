@@ -1,81 +1,49 @@
-/* Loader styles */
-.loading {
-    text-align: center;
-  }
-  
-  /* Error message styles */
-  .error {
-    color: red;
-  }
-  
-  /* Product card styles */
-  .card {
-    margin-bottom: 20px;
-  }
-  
-  .content-img {
-    transform-origin: center center !important;
-    object-fit: cover !important;
-    height: 100% !important;
-    width: 100% !important;
-    padding: 0px !important;
-    margin: 0px !important;
-    transition: ease-in 0.5s !important;
-    filter: brightness(100%) !important;
-  }
-  
-  .card h3 {
-    margin-top: 10px;
-  }
-  
-  .card p {
-    font-weight: bold;
-  }
 
-  .item.content{
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
-  }
-  
-  /* View Product button styles */
-  /* .card button {
-    display: block;
-    margin-top: 10px;
-    background-color: #405368;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-  } */
+.content-img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin: 3%;
+  padding-right: 6%;
+  transition: transform 0.5s;
+}
 
-  .card button {
-    cursor: pointer;
-    font: inherit;
-    color: rgb(255, 240, 240) !important;
-    background-color: #110e0e;
-    border-radius: 4px;
-    padding: 0.5rem 2.5rem;
-  }
-  
-  .card button:hover {
-    background-color: #706868;
-    border-color: #454343;
-  }
-  
-  /* Social media links container styles */
-  .social-media-links {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 20px;
-  }
-  
-  /* Social media link button styles */
-  .social-media-links button {
-    background-color: #28a745;
-    color: #fff;
-    border: none;
-    padding: 8px 16px;
-    cursor: pointer;
-  }
-  
+.card:hover .content-img {
+  transform: scale(1.4);
+}
+
+.card {
+  margin: 3%; 
+  overflow:hidden;
+}
+
+h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+p {
+  font-weight: 700;
+  font-size: 16px;
+  color: #555;
+}
+
+.addtocart-button{
+  margin-left: 7%;
+}
+
+/* Social media links container styles */
+.social-media-links {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+/* Social media link button styles */
+.social-media-links button {
+  background-color: #28a745;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  cursor: pointer;
+}

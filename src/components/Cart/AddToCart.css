@@ -1,0 +1,14 @@
+.card button {
+    width: 180px !important;
+    height: 40px !important;
+    cursor: pointer;
+    font-size: 70% !important;
+    color: rgb(255, 240, 240) !important;
+    background-color: #110e0e;
+    padding: 0.7rem 3.5rem !important;
+}
+
+.card button:hover {
+    background-color: #706868;
+    border-color: #454343;
+}

@@ -3,14 +3,17 @@ import { Navbar, Container, Nav, Modal, Button } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartContext from '../../store/cart-context';
 import AuthContext from '../../store/auth-context';
+import Header from '../../Header/Header';
 import Cart from '../Cart/Cart';
 import './Navbar.css';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom';
 
 const NavbarComponent = () => {
   const cartCntxt = useContext(CartContext);
   const [showModal, setShowModal] = useState(false);
   const authCntxt = useContext(AuthContext);
   const isLoggedIn = authCntxt.isLoggedIn;
+  const history = useHistory();
 
   const noOfCartItems = cartCntxt.items.length ;
 
@@ -26,11 +29,17 @@ const NavbarComponent = () => {
     cartCntxt.removeAllItems();
   }
 
+  const logOutHandler = () => {
+    authCntxt.logout();
+    history.replace('/about');
+  }
+
   return (
     <div>
     <Navbar bg="dark" expand="sm" variant="dark">
       <Container>
-        {/* <Navbar.Brand >Ooga Boga</Navbar.Brand> */}
+        {isLoggedIn && <Button variant='secondary'  className='logout-button' onClick={logOutHandler}> LogOut </Button>}
+
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
 
@@ -52,7 +61,6 @@ const NavbarComponent = () => {
         </Navbar.Collapse>
       </Container>
 
-      {/* Modal for displaying the cart */}
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
           <Modal.Title>Cart</Modal.Title>
@@ -69,7 +77,7 @@ const NavbarComponent = () => {
         </Modal.Footer>
       </Modal>
     </Navbar>
-    <h1>Ooga Boga</h1>
+    <Header />
     </div>
   );
 };

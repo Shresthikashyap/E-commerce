@@ -7,14 +7,13 @@ const CartProvider = (props) => {
 
   const authCntxt = useContext(AuthContext);
   const email = authCntxt.emailId;
-  console.log('email',email)
   const [items, updateItems] = useState([]);
   const [total, updateTotal] = useState(0);
 
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}`);
+      const response = await axios.get(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}`);
       console.log('Cart data:', response.data);
        //if(!isNaN(response.data[0]._id)){
           updateItems(response.data);    
@@ -30,7 +29,7 @@ useEffect(() => {
 
   const addItemToCartHandler = async(item) => { 
       try {
-      const response = await axios.post(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}`, { item });
+      const response = await axios.post(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}`, { item });
       console.log('Cart data saved successfully:', response.data);
       const newItem = response.data;
 
@@ -57,7 +56,7 @@ useEffect(() => {
   const removeItemFromCartHandler = async (_id) => {
 
     try {
-      const response = await axios.delete(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}/${_id}`);
+      const response = await axios.delete(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}/${_id}`);
       console.log('Item removed successfully:', response);
          
         const removedItemIndex = items.findIndex((i) => i._id === _id);
@@ -80,7 +79,7 @@ useEffect(() => {
     
     try{
         for(let i=0;i<items.length;i++){
-        const response = await axios.delete(`https://crudcrud.com/api/d461dc66dba143beb63db59a77ceb52b/${email}/${items[i]._id}`);
+        const response = await axios.delete(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}/${items[i]._id}`);
         console.log('Items removed successfully:', response);
         }
         updateItems([]);

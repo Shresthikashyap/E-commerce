@@ -1,7 +1,6 @@
-// Cart.js
 import React, { useContext } from 'react';
 import { Card,Button} from 'react-bootstrap';
-import CartContext from '../../store/cart-context';
+import CartContext from '../../store/cart-context'; 
 
 const Cart = () => {
   const cartCntxt = useContext(CartContext);
@@ -32,7 +31,7 @@ const Cart = () => {
   return (
     <div>
       {updatedCart.map((cartItem) => (
-        <Card key={cartItem.item.id} className="mb-3">
+        <Card key={cartItem.item.id} >
           <Card.Body className="d-flex align-items-center">
             <div>
               <img src={cartItem.item.imageUrl} alt={cartItem.item.title} style={{ maxWidth: '80%', height: 'auto' }} />
@@ -42,8 +41,8 @@ const Cart = () => {
               <p className="mb-1">Quantity: {cartItem.item.quantity}</p>
               <p className="mb-1">Price: ${cartItem.item.price}</p>
               <div>
-                <Button variant="primary" onClick={() => cartItemRemoveHandler(cartItem._id)}> - </Button>
-                <Button variant="dark" onClick={() => cartItemAddHandler(cartItem.item)} className="ms-2"> + </Button>
+                <Button variant="dark" onClick={() => cartItemRemoveHandler(cartItem._id)} style={{maxWidth: '80px'}}> - </Button>
+                <Button variant="dark" onClick={() => cartItemAddHandler(cartItem.item)} style={{maxWidth: '80px'}}> + </Button>
               </div>
             </div>
           </Card.Body>

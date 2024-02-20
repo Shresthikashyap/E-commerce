@@ -1,10 +1,10 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { Link, useHistory } from 'react-router-dom';
-import { Container, Row, Col, Card } from 'react-bootstrap';
+import { Container, Row, Col, Card} from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
 import AuthContext from '../../store/auth-context';
 import './Products.css';
-import CardComponent from '../UI/Card/Card'
+//import CardComponent from '../UI/Card/Card'
 
 const API_URL = 'https://react-f984f-default-rtdb.firebaseio.com/products.json';
 
@@ -50,36 +50,35 @@ const AvailableProducts = () => {
   }, [authContext.isLoggedIn, history]);
 
   const productItems = products.map((product) => (
-    <Col key={product.id} sm={3} >
-      <Card className='shadow-lg'>
-        <Card.Body>
-          <img src={product.imageUrl} alt={product.title} className='content-img'/>
-          <h3>{product.title}</h3>
-          <p> ₹ {product.price}</p>
-          <Link to={`/store/${product.id}`}>
-            <button>View Product</button>
-          </Link>
-          <AddToCart variant='danger' item={product} />
-        </Card.Body>
-      </Card>
-    </Col>
+<Col key={product.id} sm={3} className="mb-4"> 
+<Card.Body>
+  <Card className="shadow-lg">
+    <Link to={`/store/${product.id}`}>
+      <Card.Img variant="top" src={product.imageUrl} alt={product.title} className="content-img" />
+    </Link>   
+    </Card>
+      <Card.Title>{product.title}</Card.Title>
+      <Card.Text>₹ {product.price}</Card.Text>
+      <div className='addtocart-button'>
+        <AddToCart  item={product} />      
+      </div>      
+
+    </Card.Body>
+</Col>
   ));
 
-
   return (
-    <CardComponent>
-    <section>
-      <Container className='mt-3'>
-      {loading && <p className="loading">Loading...</p>}
-        {error && <p className="error">Error: {error}</p>}
-        {!loading && !error && (
-          <div className='item-content'>
-            <Row>{productItems}</Row>
-          </div>
-        )}
-      </Container>
-    </section>
-    </CardComponent>
+      <section>
+        <Container className='mt-3'>
+          {loading && <p className="loading">Loading...</p>}
+          {error && <p className="error">Error: {error}</p>}
+          {!loading && !error && (
+            <div>
+              <Row>{productItems}</Row>
+            </div>
+          )}
+        </Container>
+      </section>
   );
 };
 

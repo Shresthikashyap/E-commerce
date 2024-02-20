@@ -39,9 +39,7 @@ const AuthForm = () => {
       if (res.ok) {
         setIsLoading(false);
         authCntxt.login(data.idToken);
-        console.log('done');
       } else {
-        console.log(res);
         setIsLoading(false);
         alert('Something went wrong');
       }

@@ -1,11 +1,10 @@
 import { Container} from "react-bootstrap";
 import './About.css';  // Import your CSS file
-import Card from '../UI/Card/Card'
+//import Card from '../UI/Card/Card'
 
 const About = () => {
   return (
-    <Card>
-    <Container className="about">
+    <Container>
       <div className="about-content">
         <h2 className="about-header" >About</h2>
         <img src="https://prasadyash2411.github.io/ecom-website/img/Band%20Members.png" alt="Band Members" className="about-image" />
@@ -29,7 +28,6 @@ const About = () => {
         </p>
       </div>
     </Container>
-    </Card>
   );
 }
 

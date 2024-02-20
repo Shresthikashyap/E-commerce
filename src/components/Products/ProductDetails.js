@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Button, Container, Row, Col } from 'react-bootstrap';
+import { Container, Row, Col } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
 import AddToCart from '../Cart/AddToCart';
 import './ProductDetails.css';
@@ -61,7 +61,7 @@ const ProductDetails = () => {
         <Col xs={12} md={6}>
           <h3>{loadedProduct.title}</h3>
           <br />
-          <p>${loadedProduct.price}</p>
+          <p>₹ {loadedProduct.price}</p>
           <p>
           Save Extra with 2 offers <br />
           Bank Offer (2): 10% Instant Discount up to INR 500 on Federal Bank Master Card Debit Card Non-EMI Trxns.<br/> 
@@ -69,7 +69,7 @@ const ProductDetails = () => {
           Min purchase value INR 2500 See All <br />
           Partner Offers: Get GST invoice and save up to 28% on business purchases. Sign up for free DetailsPartner Offers: Get GST invoice and save up to 28% on business purchases. 
           </p>
-          <AddToCart variant='danger' item={loadedProduct} />
+            <AddToCart variant='danger' item={loadedProduct} />    
         </Col>
       </Row>
     </Container>

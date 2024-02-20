@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container,Button} from 'react-bootstrap';
 import './Home.css';
-import Card from '../UI/Card/Card'
+//import Card from '../UI/Card/Card'
 
 const Tours = [
   {
@@ -47,16 +47,18 @@ const AvailableTours = () => {
   ));
 
   return (
-    <Card>
-    <section>
+ 
+    <section className='tours'>
       <div className='tours-header'>
-        <img src="https://cdn.dribbble.com/users/2200696/screenshots/14583171/media/9132c75e50cc259472a358b1c9517693.jpg?resize=1000x750&vertical=center" alt="music label" />
-      </div>
+      <h2 className='header-title'>
+            Tours
+          </h2>       
+      </div> 
       <div className='tours-container'>
         <Container>{availableTours}</Container>
       </div>
     </section>
-    </Card>
+ 
   );
 };
 

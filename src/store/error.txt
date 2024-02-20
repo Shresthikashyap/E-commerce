@@ -1,5 +1,0 @@
-navbar no.of items (quantity error)
-
-when i click on  - quantity error
-
-order item is not working properly
