@@ -1,16 +1,16 @@
-import React, { useContext, useEffect, useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
+import React, {  useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { Container, Row, Col, Card} from 'react-bootstrap';
 import AddToCart from '../Cart/AddToCart';
-import AuthContext from '../../store/auth-context';
+//import AuthContext from '../../store/auth-context';
 import './Products.css';
 //import CardComponent from '../UI/Card/Card'
 
 const API_URL = 'https://react-f984f-default-rtdb.firebaseio.com/products.json';
 
 const AvailableProducts = () => {
-  const authContext = useContext(AuthContext);
-  const history = useHistory();
+  // const authContext = useContext(AuthContext);
+  // const history = useHistory();
   const [loading, setLoading] = useState(true);
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -42,12 +42,12 @@ const AvailableProducts = () => {
       }
     };
 
-    if (!authContext.isLoggedIn) {
-      history.replace('/login');
-    } else {
+    // if (!authContext.isLoggedIn) {
+    //   history.replace('/login');
+    // } else {
       fetchProducts();
-    }
-  }, [authContext.isLoggedIn, history]);
+    //}
+  }, []);
 
   const productItems = products.map((product) => (
 <Col key={product.id} sm={3} className="mb-4"> 

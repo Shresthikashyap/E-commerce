@@ -13,7 +13,8 @@ const CartProvider = (props) => {
 useEffect(() => {
   const fetchData = async () => {
     try {
-      const response = await axios.get(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}`);
+      const response = await axios.get(`https://crudcrud.com/api/917cc01263bf4bee9cffc16b3391e33d
+/${email}`);
       console.log('Cart data:', response.data);
        //if(!isNaN(response.data[0]._id)){
           updateItems(response.data);    
@@ -29,7 +30,8 @@ useEffect(() => {
 
   const addItemToCartHandler = async(item) => { 
       try {
-      const response = await axios.post(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}`, { item });
+      const response = await axios.post(`https://crudcrud.com/api/917cc01263bf4bee9cffc16b3391e33d
+/${email}`, { item });
       console.log('Cart data saved successfully:', response.data);
       const newItem = response.data;
 
@@ -56,7 +58,8 @@ useEffect(() => {
   const removeItemFromCartHandler = async (_id) => {
 
     try {
-      const response = await axios.delete(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}/${_id}`);
+      const response = await axios.delete(`https://crudcrud.com/api/917cc01263bf4bee9cffc16b3391e33d
+/${email}/${_id}`);
       console.log('Item removed successfully:', response);
          
         const removedItemIndex = items.findIndex((i) => i._id === _id);
@@ -79,7 +82,8 @@ useEffect(() => {
     
     try{
         for(let i=0;i<items.length;i++){
-        const response = await axios.delete(`https://crudcrud.com/api/32ec17fca1f447888121f146c78dbbe8/${email}/${items[i]._id}`);
+        const response = await axios.delete(`https://crudcrud.com/api/917cc01263bf4bee9cffc16b3391e33d
+/${email}/${items[i]._id}`);
         console.log('Items removed successfully:', response);
         }
         updateItems([]);

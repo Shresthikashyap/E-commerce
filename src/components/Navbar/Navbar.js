@@ -1,12 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { Navbar, Container, Nav, Modal, Button } from 'react-bootstrap';
+import { Navbar, Container, Nav, Modal, Button, NavLink } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import CartContext from '../../store/cart-context';
 import AuthContext from '../../store/auth-context';
-import Header from '../../Header/Header';
+import Header from '../Header/Header';
 import Cart from '../Cart/Cart';
 import './Navbar.css';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom';
+import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 
 const NavbarComponent = () => {
   const cartCntxt = useContext(CartContext);
@@ -45,7 +46,7 @@ const NavbarComponent = () => {
 
             {isLoggedIn && <Nav.Link as={Link} to="/home"> Home </Nav.Link>}
 
-            {isLoggedIn && <Nav.Link as={Link} to="/store"> Store </Nav.Link>} 
+            <Nav.Link as={Link} to="/"> Store </Nav.Link>
 
             <Nav.Link as={Link} to="/about"> About </Nav.Link>
            
@@ -53,9 +54,10 @@ const NavbarComponent = () => {
 
             {isLoggedIn && <Nav.Link as={Link} to="/contactus"> Contact Us </Nav.Link >}
 
-            {isLoggedIn && <Nav.Link onClick={handleShowModal} className='cart'>
-            Cart<div style={{marginLeft:'7px',fontSize:'30px'}}> 🛒</div>
-            <div style={{marginLeft:'4px',color:''}}>{noOfCartItems}</div> </Nav.Link>}
+            {isLoggedIn && <NavLink> 
+              <div style={{marginLeft:'10px',fontSize:'30px'}}> 
+              <ShoppingCartIcon onClick={handleShowModal} /> </div> {noOfCartItems}
+              </NavLink>}
             
             </Nav>
         </Navbar.Collapse>
