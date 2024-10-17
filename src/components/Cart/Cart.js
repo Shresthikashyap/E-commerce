@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { Card,Button} from 'react-bootstrap';
+import { Card, Button, Row, Col } from 'react-bootstrap';
 import CartContext from '../../store/cart-context'; 
 
 const Cart = () => {
@@ -31,20 +31,33 @@ const Cart = () => {
   return (
     <div>
       {updatedCart.map((cartItem) => (
-        <Card key={cartItem.item.id} >
-          <Card.Body className="d-flex align-items-center">
-            <div>
-              <img src={cartItem.item.imageUrl} alt={cartItem.item.title} style={{ maxWidth: '80%', height: 'auto' }} />
-            </div>
-            <div>
-              <h5>{cartItem.item.title}</h5>
-              <p className="mb-1">Quantity: {cartItem.item.quantity}</p>
-              <p className="mb-1">Price: ${cartItem.item.price}</p>
-              <div>
-                <Button variant="dark" onClick={() => cartItemRemoveHandler(cartItem._id)} style={{maxWidth: '80px'}}> - </Button>
-                <Button variant="dark" onClick={() => cartItemAddHandler(cartItem.item)} style={{maxWidth: '80px'}}> + </Button>
-              </div>
-            </div>
+        <Card key={cartItem.item.id} className="mb-3">
+          <Card.Body>
+            <Row className="align-items-center">
+              <Col xs={12} md={4} className="text-center mb-3 mb-md-0">
+                <img src={cartItem.item.imageUrl} alt={cartItem.item.title} style={{ maxWidth: '100%', height: 'auto' }} />
+              </Col>
+              <Col xs={12} md={8}>
+                <h5>{cartItem.item.title}</h5>
+                <p className="mb-1">Quantity: {cartItem.item.quantity}</p>
+                <p className="mb-3">Price: ${cartItem.item.price}</p>
+                <div className="d-flex justify-content-start">
+                  <Button 
+                    variant="outline-dark" 
+                    onClick={() => cartItemRemoveHandler(cartItem._id)} 
+                    className="me-2"
+                  >
+                    Remove
+                  </Button>
+                  <Button 
+                    variant="outline-dark" 
+                    onClick={() => cartItemAddHandler(cartItem.item)}
+                  >
+                    Add
+                  </Button>
+                </div>
+              </Col>
+            </Row>
           </Card.Body>
         </Card>
       ))}
